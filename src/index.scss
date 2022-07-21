@@ -1,71 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
+@import "sass/abstracts/variables";
 
-/* VARIABLES */
-$color-primary-dark : #293462;
-$color-bright-yellow: #FFF80A;
-$color-pink: #D61C4E;
-$color-sunset: #FEB139;
-$color-white: white;
-
-//UTILITY-CLASSES
-.u-center-element {
-  margin: 0 auto;
-}
+@import "sass/base/base";
+@import "sass/base/typography";
+@import "sass/base/utilities";
 
 
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 10px;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 1.7;
-  background-color: $color-primary-dark;
-}
-
-//NAVBAR
-.navbar {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 85px;
-  background-color: $color-pink;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $color-white;
-  font-weight: 500;
-  
-
-  &__Nav {
-    width: 100%;
-    margin-top: .5rem;
-  }
+@import "sass/components/form";
+@import "sass/components/navbar";
 
 
-  &__list {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-evenly;
-  }
 
-  &__items {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
+

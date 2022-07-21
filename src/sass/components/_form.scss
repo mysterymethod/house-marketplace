@@ -1,0 +1,96 @@
+.email-input,
+.name-input {
+  padding: 1rem 3.5rem;
+  border-radius: 2rem;
+  width: 100%;
+  border: none;
+  background: url('../../assets/svg/personIcon.svg') $color-white 0.5% center no-repeat;
+  // width: 80%;
+  display: block;
+  box-shadow: -.5rem .5rem 2rem rgba($color-black, 0.5);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.password-div {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.password-input {
+
+  padding: 1rem 3.5rem;
+  border-radius: 2rem;
+  border: none;
+  width: 100%;
+  background: url('../../assets/svg/lockIcon.svg') $color-white 0.5% center no-repeat;
+  // width: 80%;
+  display: block;
+  box-shadow: -.5rem .5rem 2rem rgba($color-black, 0.5);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.show-password {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+}
+
+.forgot-password {
+  text-align: right;
+}
+
+.signin-div,
+.signup-div
+{
+  //background-color: green;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .signin-div {
+    justify-content: flex-start;
+  }
+}
+
+.signin-text, .signup-text  {
+  font-size: 2.5rem;
+  color: white;
+  text-shadow: -.5rem .5rem 2rem rgba($color-black, 0.5);
+}
+
+.signin-button,
+.signup-button
+{
+  background-color: $color-green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: $color-white;
+  border: none;
+  height: 4rem;
+  width: 4rem;
+  box-shadow: -.5rem .5rem 2rem rgba($color-black, 0.5);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1024px) {
+  .signin-button {
+    margin-left: 4rem;
+  }
+}
+
+.register-link {
+  text-align: center;
+}

@@ -30,7 +30,7 @@ function App() {
           />
           <Route
             path='/profile'
-            element={<Profile />}
+            element={<SignIn />}
           />
           <Route
             path='/sign-in'
