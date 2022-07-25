@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {toast} from 'react-toastify'
 
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
@@ -44,7 +45,7 @@ function SignIn() {
       }
 
     } catch (error) {
-
+      toast.error('Bad User Credentials')
     }
 
   }
