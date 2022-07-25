@@ -1,8 +1,13 @@
 import { useState } from 'react'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { db } from '../firebase.config'
+import {setDoc, doc, serverTimestamp} from 'firebase/firestore'
+
+
 
 function SignUp() {
 
@@ -14,6 +19,8 @@ function SignUp() {
     password: ''
   })
 
+  const navigate = useNavigate()
+
   const { name, email, password } = formData
 
   const handleChange = (event) => {
@@ -23,12 +30,48 @@ function SignUp() {
     }))
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      //CREATING AUTH OBJECT
+      const auth = getAuth()
+
+      //REGISTERING THE USER, IT RETURNS PROMISE.
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+
+      //GET ACTUAL USER
+      const user = userCredential.user
+
+      //UPDATING DISPLAY NAME
+      updateProfile(auth.currentUser, {
+        displayName: name
+      })
+
+
+      //CREATING COPY OF FORMDATA, STORING IN THE SERVER DATABASE
+      const formDataCopy = {...formData}
+      delete formDataCopy.password
+      formDataCopy.timestamp = serverTimestamp()
+
+      await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
+      
+      //REDIRECTING TO HOME PAGE
+      navigate('/')
+
+    } catch (error) {
+      // console.log(error)
+    }
+
+  }
+
   return (
     <>
       <div className="u-container">
         <p className='primary-heading'>welcome back!</p>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* NAME INPUT */}
           <input
             type="text"
@@ -73,14 +116,18 @@ function SignUp() {
             <p>Forgot Password</p>
           </Link> */}
 
+
+          {/* SUBMIT BUTTON */}
           <div className="signup-div u-margin-top-high">
             <p className='signup-text'>Sign Up</p>
-            <button className="signup-button">
+            <button className="signup-button" type='onSubmit'>
               <ArrowRightIcon fill='white' />
             </button>
           </div>
         </form>
 
+
+        {/* SIGN UP INSTEAD LINK */}
         <div className="u-margin-top-high">
           <Link to='/sign-in' className='text-link-styler register-link'>
             <p>Sign In Instead</p>

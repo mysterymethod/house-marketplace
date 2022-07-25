@@ -2,7 +2,9 @@ import { useState } from 'react'
 
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 function SignIn() {
 
@@ -13,6 +15,8 @@ function SignIn() {
     password: ''
   })
 
+  const navigate = useNavigate()
+
   const { email, password } = formData
 
   const handleChange = (event) => {
@@ -22,12 +26,36 @@ function SignIn() {
     }))
   }
 
+
+  const submitHandler = async (event) => {
+    event.preventDefault()
+
+    try {
+      const auth = getAuth()
+
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+
+      if (userCredentials.user) {
+        navigate('/')
+      }
+
+    } catch (error) {
+
+    }
+
+  }
+
   return (
     <>
       <div className="u-container">
         <p className='primary-heading'>welcome back!</p>
 
-        <form>
+        <form onSubmit={submitHandler}>
+          {/* EMAIL INPUT */}
           <input
             type="email"
             className='email-input u-margin-top-medium'
@@ -37,6 +65,7 @@ function SignIn() {
             value={email}
           />
 
+          {/* PASSWORD INPUT */}
           <div className="password-div">
             <input
               type={showPass ? 'text' : 'password'}
@@ -56,18 +85,22 @@ function SignIn() {
             />
           </div>
 
+          {/* FORGOT PASSWORD LINK */}
           <Link to='/forgot-password' className='text-link-styler forgot-password'>
             <p>Forgot Password</p>
           </Link>
 
+          {/* SIGNIN BUTTON */}
           <div className="signin-div u-margin-top-high">
             <p className='signin-text'>Sign In</p>
-            <button className="signin-button">
+            <button className="signin-button" type='onSubmit'>
               <ArrowRightIcon fill='white' />
             </button>
           </div>
         </form>
 
+
+        {/* SIGNUP INSTEAD LINK */}
         <div className="u-margin-top-high">
           <Link to='/sign-up' className='text-link-styler register-link'>
             <p>Sign Up Instead</p>
