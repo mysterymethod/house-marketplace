@@ -6,6 +6,7 @@ import Explore from './pages/Explore'
 import ForgotPassword from './pages/ForgotPassword'
 import Offers from './pages/Offers'
 import Profile from './pages/Profile'
+import PrivateRoute from './components/PrivateRoute'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Navbar from './components/Navbar';
@@ -33,8 +34,14 @@ function App() {
           />
           <Route
             path='/profile'
-            element={<Profile />}
-          />
+            element={<PrivateRoute />}
+          >
+            <Route
+              path='/profile'
+              element={<Profile />}
+            />
+          </Route>
+          
           <Route
             path='/sign-in'
             element={<SignIn />}
